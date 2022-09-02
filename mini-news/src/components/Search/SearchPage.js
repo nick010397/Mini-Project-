@@ -6,7 +6,7 @@ import search_b from "../../img/search_b.png";
 //검색 기능 구현 해주시면 될것같습니다. API 접근하여 기사를 받아온후
 //props를 이용하여 NewsList 밑 ClipPage에 전달해주기
 
-export default function SearchPage({setTerm}) {
+export default function SearchPage({setTerm,setArticles}) {
   const [hide, setHide] = useState(0);
   const [text, setText] = useState([]);
   
@@ -48,6 +48,7 @@ export default function SearchPage({setTerm}) {
         text.unshift(e.target.value);
         setText((text)=>[...text]);
         setTerm(e.target.value);
+        setArticles([])
       }
     }, 500);
     (e.target.value !== "" ? setHide(1) : setHide(0)) //최근검색어 Hide&UnHide 
