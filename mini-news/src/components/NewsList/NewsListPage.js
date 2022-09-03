@@ -8,8 +8,12 @@ import ClipPage from "../Clip/ClipPage";
 import bookmark_before from "../../img/bookmark_before.png";
 import bookmark_after from "../../img/bookmark_after.png";
 import { useInView } from "react-intersection-observer";
+import { useDispatch, useSelector } from "react-redux";
+import { addId } from "../../store";
 // import API_KEY from "./Token";
 //뉴스기사 검색 받은걸 보여주는 기능 구현
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 export default function NewsListPage() {
   const [articles, setArticles] = useState([]);
@@ -21,6 +25,9 @@ export default function NewsListPage() {
   const API_KEY = process.env.REACT_APP_ARTICLES_API_KEY;
   const value = window.localStorage.getItem('clipHistory');
   let ParsingClip = JSON.parse(value);
+
+
+  
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -64,15 +71,23 @@ export default function NewsListPage() {
     }
   })
 
-  useEffect(() => {
-    if(ParsingClip !== null && articles.length !== 0 ){
-      let clipOne = ParsingClip.map(clipId => clipId.id);
-      let clipButtonList = clipOne.map(clipOneID => document.getElementById(clipOneID));
-      clipButtonList.map(mapid => mapid.classList.add('clipon'))
+//   useEffect(() => {
+//     if(ParsingClip !== null && articles.length !== 0 ){
+//       let clipOne = ParsingClip.map(clipId => clipId.id);
+//       let clipButtonList = clipOne.map(clipOneID => document.getElementById(clipOneID));
+//       clipButtonList.map(mapid => mapid.classList.add('clipon'))
 
-    }
+//     }
 
-})
+// })
+  //redux store 가져와줌
+  let clipList = useSelector((state) => state.clipList )
+  console.log(clipList)
+  let dispatch = useDispatch()
+// dispatch(changeid())
+  localStorage.setItem('clip', JSON.stringify(clipList))
+  let 꺼낸거 = localStorage.getItem('clip')
+console.log(꺼낸거)
 
   return (
     <>
@@ -103,7 +118,14 @@ export default function NewsListPage() {
                 <p>{sliceByline}</p>
                 <span>{pub_date}</span>
               </NewsInfo>
-              <ClipBtn onClick={toggleActive} id={_id} />
+              
+              {
+                clipList.map((item) => item.id).indexOf(_id) !== -1?
+                <ClipBtn className="clipon" id={_id} />
+                :
+                <ClipBtn onClick={()=> dispatch(addId({id: _id}))} id={_id} />
+              }
+              
               <div ref={ref}></div>
             </NewsList>
           );
