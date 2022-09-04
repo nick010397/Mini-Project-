@@ -18,29 +18,25 @@ let clipList = createSlice({
   }
 })
 
-let searchValue = createSlice({
-name : 'search',
-initialState : [],
-reducers : {
-  searchInput(state, action){
-    state = action.payload
-    console.log(state)
-  }
-}
-})
+// let searchValue = createSlice({
+// name : 'search',
+// initialState : [],
+// reducers : {
+//   searchInput(state, action){
+//     state = action.payload
+//     console.log(state)
+//   }
+// }
+// })
 
 
 export let {addId, removeId} = clipList.actions
-export let {searchInput} = searchValue.actions
+// export let {searchInput} = searchValue.actions
 
-// let newlist = createSlice({
-//     name : 'listid',
-//     initialState : [10, 11, 12]
-// })
 
 export default configureStore({
 reducer: { 
   clipList : clipList.reducer,
-  searchValue : searchValue.reducer
+  // searchValue : searchValue.reducer
 }
 })
