@@ -9,24 +9,27 @@ import bookmark_before from "../../img/bookmark_before.png";
 import bookmark_after from "../../img/bookmark_after.png";
 import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
-import { addId } from "../../store";
+import { addId, removeId } from "../../store";
 // import API_KEY from "./Token";
 //뉴스기사 검색 받은걸 보여주는 기능 구현
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 export default function NewsListPage() {
   const [articles, setArticles] = useState([]);
   const [term, setTerm] = useState(); 
   const [pageNo, setPageNo] = useState(0);
   const [ref, inView] = useInView(false);
-  const [btnActive, setBtnActive] = useState(null);
-  const [clickNum, setClickNum] = useState(0);
+  // const [btnActive, setBtnActive] = useState(null);
+  // const [clickNum, setClickNum] = useState(0);
   const API_KEY = process.env.REACT_APP_ARTICLES_API_KEY;
   const value = window.localStorage.getItem('clipHistory');
-  let ParsingClip = JSON.parse(value);
+  // let ParsingClip = JSON.parse(value);
+  const [clipdata,setClipdata] = useState()
 
-
+  //redux store 가져와줌
+  let clipList = useSelector((state) => state.clipList );
+  console.log(clipList);
+  let dispatch = useDispatch();
+  localStorage.setItem('clip', JSON.stringify(clipList));
   
 
   useEffect(() => {
@@ -51,43 +54,8 @@ export default function NewsListPage() {
     console.log(inView)
   }, [inView]);
 
-  const [clipdata,setClipdata] = useState()
   
-  const toggleActive = (e) => {
-    setBtnActive(e.target.id) 
-    setClickNum(prev => prev +1)
-
-    articles.map((article) =>
-      article._id === e.target.id ? setClipdata(article) : null
-
-    );
-
-  };
-
-  useEffect(() => {
-    if(btnActive !== null){
-      let current = document.getElementById(btnActive);
-      current.classList.toggle('clipon');
-    }
-  })
-
-//   useEffect(() => {
-//     if(ParsingClip !== null && articles.length !== 0 ){
-//       let clipOne = ParsingClip.map(clipId => clipId.id);
-//       let clipButtonList = clipOne.map(clipOneID => document.getElementById(clipOneID));
-//       clipButtonList.map(mapid => mapid.classList.add('clipon'))
-
-//     }
-
-// })
-  //redux store 가져와줌
-  let clipList = useSelector((state) => state.clipList )
-  console.log(clipList)
-  let dispatch = useDispatch()
-// dispatch(changeid())
-  localStorage.setItem('clip', JSON.stringify(clipList))
-  let 꺼낸거 = localStorage.getItem('clip')
-console.log(꺼낸거)
+  
 
   return (
     <>
@@ -121,9 +89,9 @@ console.log(꺼낸거)
               
               {
                 clipList.map((item) => item.id).indexOf(_id) !== -1?
-                <ClipBtn className="clipon" id={_id} />
+                <ClipBtn onClick={()=> dispatch(removeId(_id))} className="clipon" id={_id} />
                 :
-                <ClipBtn onClick={()=> dispatch(addId({id: _id}))} id={_id} />
+                <ClipBtn onClick={()=> dispatch(addId({id: _id, title: main, url: web_url, byline: sliceByline, date: pub_date}))} id={_id} />
               }
               
               <div ref={ref}></div>
