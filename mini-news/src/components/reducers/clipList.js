@@ -11,5 +11,5 @@ export const clipList = createSlice({
     }
 })
 
-export const {addID} = 
+export const {addId} = clipList.actions;
 export default clipList.reducer;
