@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addId } from "../../store";
 // import API_KEY from "./Token";
 //뉴스기사 검색 받은걸 보여주는 기능 구현
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import { persistReducer } from "redux-persist";
+// import storage from "redux-persist/lib/storage";
 
 export default function NewsListPage() {
   const [articles, setArticles] = useState([]);
@@ -91,7 +91,7 @@ console.log(꺼낸거)
 
   return (
     <>
-      <SearchPage setTerm={setTerm} />
+      <SearchPage setTerm={setTerm} setArticles={setArticles}/>
       <NewsWrap>
         <ClipPage clipdata={clipdata}/>
         {articles.map((article) => {
