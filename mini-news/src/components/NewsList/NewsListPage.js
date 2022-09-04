@@ -59,7 +59,7 @@ export default function NewsListPage() {
 
   return (
     <>
-      <SearchPage setTerm={setTerm} />
+      <SearchPage setTerm={setTerm} setArticles={setArticles}/>
       <NewsWrap>
         <ClipPage clipdata={clipdata}/>
         {articles.map((article) => {
