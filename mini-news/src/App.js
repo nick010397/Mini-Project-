@@ -5,7 +5,7 @@ import { WrapInner } from "./styles/WrapStyle";
 import ClipList from "./components/Clip/ClipList";
 
 function App() {
-  
+//test
   return (
     <>
       <WrapInner>
