@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SearchHistory from "./SearchHistory";
+// import SearchHistory from "./SearchHistory";
 import styled from "styled-components";
 import search_b from "../../img/search_b.png";
 
