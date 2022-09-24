@@ -1,7 +1,6 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Link, } from "react-router-dom";
 import styled,{css} from "styled-components"
-import NewsListPage from '../NewsList/NewsListPage'
 import sort_uncheck from "../../img/sort_uncheck.png";
 import sort_check from "../../img/sort_check.png";
 
@@ -19,6 +18,7 @@ export default function ClipPage({props, clipdata}) {
   }
 
   const cilpEdit = (item) =>{
+    console.log("클립 테스트");
 
     const {_id, web_url, headline:{main}, pub_date, byline:{original}} = item
      
@@ -30,11 +30,10 @@ export default function ClipPage({props, clipdata}) {
      id:_id
     }
  
- 
-    let localStorageArr = localStorage.getItem('clipHistory')
-     localStorageArr===null? localStorageArr=[] : localStorageArr= JSON.parse(localStorageArr); 
-     localStorageArr.push(newClipdata);
-     localStorage.setItem('clipHistory', JSON.stringify(localStorageArr))
+    // let localStorageArr = localStorage.getItem('clipHistory')
+    //  localStorageArr===null? localStorageArr=[] : localStorageArr= JSON.parse(localStorageArr); 
+    //  localStorageArr.push(newClipdata);
+    //  localStorage.setItem('clipHistory', JSON.stringify(localStorageArr))
     
    }
 
@@ -67,7 +66,7 @@ const StyledLink = styled(Link)`
   ${(props) =>
     props.checked &&
     css`
-      color: #e76191 !important;
+      color: #e76191 
       background-repeat: no-repeat;
       background-position: left center;
       background-size: 20px;

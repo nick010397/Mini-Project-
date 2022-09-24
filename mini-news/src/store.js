@@ -1,22 +1,18 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
-
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import clipListReducer from './slice'
 
 //useState랑 비슷한 역할
-let clipList = createSlice({
-  name : 'clipId',
-  initialState : [],
-  reducers : {
-    addId(state, action){
-      state.push(action.payload)
-      console.log(state)
 
-    },
-    removeId(state, action){
-      let remove = state.filter((item) => item.id !== action.payload)
-      return remove
-    }
-  }
-})
 
 // let searchValue = createSlice({
 // name : 'search',
@@ -29,14 +25,17 @@ let clipList = createSlice({
 // }
 // })
 
-
-export let {addId, removeId} = clipList.actions
 // export let {searchInput} = searchValue.actions
 
-
 export default configureStore({
-reducer: { 
-  clipList : clipList.reducer,
-  // searchValue : searchValue.reducer
-}
-})
+  reducer: {
+    clipList: clipListReducer
+    // searchValue : searchValue.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});

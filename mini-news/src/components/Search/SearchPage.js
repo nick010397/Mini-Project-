@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SearchHistory from "./SearchHistory";
+// import SearchHistory from "./SearchHistory";
 import styled from "styled-components";
 import search_b from "../../img/search_b.png";
 
@@ -12,8 +12,7 @@ export default function SearchPage({setTerm,setArticles}) { //setArticles 추가
   
   
   const SetHistoryValue = () => {
-    return text.map((item, index) => {
-      index++;
+    return text.map((item, index) => { //test 
       if (text.length < 6) {
         return <SearchHistoryValue key={index}>{item}</SearchHistoryValue>;
       } else {
