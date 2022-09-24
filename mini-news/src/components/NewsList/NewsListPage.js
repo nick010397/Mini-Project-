@@ -20,9 +20,9 @@ export default function NewsListPage() {
 
   //redux store 가져와줌
   let clipList = useSelector((state) => state.clipList );
-  console.log(clipList);
   let dispatch = useDispatch();
-  localStorage.setItem('clip', JSON.stringify(clipList));
+  
+  
   
 
   useEffect(() => {
@@ -84,7 +84,8 @@ export default function NewsListPage() {
                 clipList.map((item) => item.id).indexOf(_id) !== -1?
                 <ClipBtn onClick={()=> dispatch(removeId(_id))} className="clipon" id={_id} />
                 :
-                <ClipBtn onClick={()=> dispatch(addId({id: _id, title: main, url: web_url, byline: sliceByline, date: pub_date}))} id={_id} />
+                <ClipBtn onClick={()=> {dispatch(addId({id: _id, title: main, url: web_url, byline: sliceByline, date: pub_date}))
+                localStorage.setItem('clip', JSON.stringify(clipList)); }} id={_id} /> //로컬스토리지 위치조정 기존에는 리랜더링되면 ClipList에는 아무것도없으니 다시 LocalStorage가 공백으로 세팅되고 있었음
               }
               
               <div ref={ref}></div>

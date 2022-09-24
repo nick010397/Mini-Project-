@@ -8,7 +8,7 @@ let clipList = createSlice({
   reducers : {
     addId(state, action){
       state.push(action.payload)
-      console.log(state)
+      // console.log(state)
 
     },
     removeId(state, action){

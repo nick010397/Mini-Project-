@@ -18,6 +18,7 @@ export default function ClipPage({props, clipdata}) {
   }
 
   const cilpEdit = (item) =>{
+    console.log("클립 테스트");
 
     const {_id, web_url, headline:{main}, pub_date, byline:{original}} = item
      
@@ -29,11 +30,10 @@ export default function ClipPage({props, clipdata}) {
      id:_id
     }
  
- 
-    let localStorageArr = localStorage.getItem('clipHistory')
-     localStorageArr===null? localStorageArr=[] : localStorageArr= JSON.parse(localStorageArr); 
-     localStorageArr.push(newClipdata);
-     localStorage.setItem('clipHistory', JSON.stringify(localStorageArr))
+    // let localStorageArr = localStorage.getItem('clipHistory')
+    //  localStorageArr===null? localStorageArr=[] : localStorageArr= JSON.parse(localStorageArr); 
+    //  localStorageArr.push(newClipdata);
+    //  localStorage.setItem('clipHistory', JSON.stringify(localStorageArr))
     
    }
 
