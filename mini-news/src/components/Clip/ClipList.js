@@ -4,7 +4,7 @@ import Styled from "styled-components";
 import bookmark_before from "../../img/bookmark_before.png";
 import bookmark_after from "../../img/bookmark_after.png";
 import { useDispatch, useSelector } from "react-redux";
-import { removeId } from "../../store";
+import { removeId } from "../../slice";
 
 export default function ClipList() {
 
